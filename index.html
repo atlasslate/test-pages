@@ -6,70 +6,92 @@
     <title>Sol Slate | Atlas IoT</title>
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
     <style>
-        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #444; line-height: 1.6; background-color: #f3f6f8; margin: 0; }
-        .header { background: #1e2831; color: #fff; padding: 60px 20px; text-align: center; border-bottom: 4px solid #151d24; }
-        .header h1 { font-size: 3em; margin: 0; letter-spacing: -1px; }
-        .main-content { max-width: 740px; margin: -40px auto 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #dce3e8; }
-        
-        /* IMAGE STYLING - UPDATED FILENAME */
+        body { 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+            color: #444; 
+            line-height: 1.6; 
+            background-color: #f3f6f8; 
+            margin: 0; 
+            padding: 40px 20px; 
+        }
+
+        .main-content { 
+            max-width: 800px; /* Slightly wider to accommodate larger image */
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            border: 1px solid #dce3e8; 
+        }
+
+        /* PRODUCT IMAGE AT TOP - 30% LARGER */
         .product-img { 
             display: block; 
             width: 100%; 
-            max-width: 500px; 
+            max-width: 650px; /* Increased from 500px (~30%) */
             height: auto; 
-            margin: 20px auto; 
+            margin: 0 auto 30px auto; 
             border-radius: 12px; 
             border: 1px solid #eaecef; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
+        
+        h1 { font-size: 2.8em; margin-top: 0; letter-spacing: -1px; color: #1e2831; text-align: center; }
+        .tagline { font-size: 1.2em; color: #6a737d; text-align: center; margin-bottom: 40px; }
 
-        .action-card { background: #f8f9fa; border: 1px solid #eaecef; border-radius: 8px; padding: 25px; margin: 30px 0; text-align: center; }
+        .action-card { background: #f8f9fa; border: 1px solid #eaecef; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: center; }
+
         .btn-group { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto; }
         .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; }
         .btn-fiat { background: #24292e; color: #fff; }
         .btn-btc { background: #f7931a; color: #fff; }
-        esp-web-install-button { --esp-tools-button-color: #1e6bb8; }
+
+        esp-web-install-button { --esp-tools-button-color: #1e6bb8; --esp-tools-button-border-radius: 6px; }
+
+        h2 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; color: #1e2831; margin-top: 40px; }
+        .faq h3 { margin-bottom: 5px; color: #1e6bb8; font-size: 1.1em; }
         .footer { text-align: center; color: #818b95; font-size: 0.8em; margin-top: 60px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Sol Slate</h1>
-        <p>Real-time API Data on Wireless Paper</p>
-    </div>
-
     <div class="main-content">
         
         <img src="Sat_Slate_product_202603181636.jpeg" alt="Sol Slate Hardware" class="product-img">
 
+        <h1>Sol Slate</h1>
+        <p class="tagline">Persistent API data for your Heltec Wireless Paper.</p>
+
         <div class="action-card">
             <h2>Flash Firmware v0.2.0</h2>
             <esp-web-install-button manifest="./manifest.json?v=0.2.0"></esp-web-install-button>
-            <p><small>Connect via USB-C and use Chrome or Edge browser.</small></p>
+            <p><small>Connect via USB-C using Chrome or Edge.</small></p>
         </div>
 
         <div class="action-card">
             <h2>Order Hardware</h2>
             <div class="btn-group">
                 <a href="#" class="btn btn-fiat">Buy with Card ($45)</a>
-                <a href="#" class="btn btn-btc">₿ Pay with BTCPay</a>
+                <a href="#" class="btn btn-btc">₿ Pay with Bitcoin</a>
             </div>
         </div>
 
-        <div class="action-card" style="text-align: left;">
-            <h2>About Atlas</h2>
-            <p>Atlas designs low-power information displays. The Sol Slate turns raw API data into a beautiful, persistent E-ink experience that lives on your desk.</p>
-        </div>
+        <hr style="border:0; border-top:1px solid #eee; margin: 40px 0;">
+
+        <h2>About Atlas</h2>
+        <p>Atlas designs minimalist hardware for the modern home. The Sol Slate turns complex data into a static, beautiful display that requires zero maintenance and uses ultra-low power.</p>
 
         <div class="faq">
             <h2>FAQ</h2>
-            <h3>How do I flash?</h3>
-            <p>Connect your device and click "Install." If your device isn't found, hold the <b>BOOT</b> button while plugging it in.</p>
+            <h3>How do I put it in Flash Mode?</h3>
+            <p>If the flasher can't find your device, hold the <b>BOOT</b> button while plugging in the USB-C cable. Once the browser recognizes it, select "USB Single Serial."</p>
         </div>
 
         <div class="footer">
             &copy; 2026 Atlas IoT • <a href="https://atlasslate.com" style="color:#1e6bb8">atlasslate.com</a>
         </div>
     </div>
+
 </body>
 </html>
