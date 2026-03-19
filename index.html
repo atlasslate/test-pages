@@ -1,53 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sol Slate | Firmware Hub</title>
-    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sol Slate | Atlas IoT</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: auto; padding: 40px 20px; background-color: #f9f9f9; }
-        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        h1 { margin-top: 0; font-weight: 800; letter-spacing: -1px; }
-        .status-box { background: #f0f7ff; border-left: 4px solid #0070f3; padding: 15px; margin: 20px 0; font-size: 0.9em; }
-        .install-wrapper { display: flex; justify-content: center; padding: 30px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin: 20px 0; }
-        .faq { margin-top: 40px; }
-        .faq h3 { font-size: 1.1em; margin-bottom: 5px; }
-        .footer { text-align: center; font-size: 0.8em; color: #888; margin-top: 40px; }
-        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #444; line-height: 1.5; background-color: #f3f6f8; margin: 0; padding: 0; }
+        a { text-decoration: none; color: #1e6bb8; }
+        h1, h2, h3 { font-weight: normal; color: #222; margin-top: 1em; margin-bottom: 0.5em; }
+        
+        /* DARK HEADER (Jekyll Slate Style) */
+        .header { background-color: #1e2831; padding: 40px 10px; text-align: center; color: #e1e8ed; border-bottom: 1px solid #1c2e3a; }
+        .header h1 { font-size: 2.8em; font-weight: 700; color: #fff; margin: 0 0 10px 0; }
+        .header p { font-size: 1.1em; color: rgba(255, 255, 255, 0.7); margin: 0; max-width: 600px; margin: auto; }
+        .btn-view-github { display: inline-block; background: #fff; color: #1e2831; padding: 10px 20px; font-weight: 700; border-radius: 6px; margin-top: 20px; text-decoration: none; }
+        
+        /* MAIN CONTENT AREA */
+        .main-content { max-width: 800px; margin: 40px auto; padding: 0 20px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 6px 30px rgba(0,0,0,0.06); }
+        
+        /* Product Image Style */
+        .product-image { display: block; max-width: 100%; border-radius: 10px; margin: 20px auto; border: 1px solid #eee; }
+        
+        /* Action Area (Flash / Buy Buttons) */
+        .action-container { background: #fdfdfd; padding: 25px; border-radius: 10px; border: 1px solid #eaecef; text-align: center; margin: 30px 0; }
+        
+        /* FLASH BUTTON (ESP Web Tools Customization) */
+        esp-web-install-button { display: block; margin: auto; max-width: 300px; padding: 15px 0; --esp-tools-button-border-radius: 8px; --esp-tools-button-color: #1e6bb8; --esp-tools-button-font-size: 1.2em; --esp-tools-button-padding: 12px 24px; }
+        
+        /* BUY BUTTONS */
+        .store-buttons { display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 20px auto; }
+        .store-btn { display: inline-block; width: 100%; padding: 12px 20px; border-radius: 8px; font-weight: bold; font-size: 1.1em; border: none; cursor: pointer; text-align: center; }
+        .store-btn:hover { opacity: 0.9; }
+        .btn-stripe { background-color: #000; color: #fff; text-decoration: none; }
+        
+        /* BTC PAY SERVER BUTTON (Professional branding) */
+        .btn-btcpay { background-color: #51b13e; color: #fff; text-decoration: none; }
+        
+        /* Standard Sections */
+        .section-separator { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
+        .faq h3 { color: #1e6bb8; margin-bottom: 2px; font-size: 1.1em; }
+        
+        .footer { text-align: center; font-size: 0.9em; color: #818b95; padding: 20px 0; margin-top: 40px; border-top: 1px solid #eaecef; }
+        
+        /* Ensure responsive layout on mobile */
+        @media screen and (max-width: 600px) { .header h1 { font-size: 2em; } .main-content { padding: 15px; } .store-buttons { max-width: 100%; } }
     </style>
+    
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
 <body>
 
-<div class="container">
-    <h1>Sol Slate v0.2.0</h1>
-    <p>Official firmware flasher for the Heltec Wireless Paper. Use <b>Chrome</b> or <b>Edge</b> via USB connection.</p>
-
-    <div class="status-box">
-        <strong>Pre-flight Check:</strong><br>
-        1. Connect Sol Slate via USB-C.<br>
-        2. If it isn't recognized, hold the <b>BOOT</b> button while plugging it in.
+    <div class="header">
+        <div class="header-inner">
+            <h1>Sol Slate Hub</h1>
+            <p>Flash, Manage, and Buy the Heltec Wireless Paper API Tool.</p>
+            <a href="#" class="btn-view-github">View Source on GitHub</a>
+        </div>
     </div>
 
-    <div class="install-wrapper">
-        <esp-web-install-button manifest="./manifest.json?v=0.2.0">
-            <button slot="activate">Connect & Install</button>
-        </esp-web-install-button>
-    </div>
-
-    <div class="faq">
-        <h2>Troubleshooting</h2>
-        <h3>Device not found?</h3>
-        <p>Ensure you are using a data-capable USB cable. Some "charging only" cables won't work.</p>
+    <div class="main-content">
         
-        <h3>Stuck in a boot loop?</h3>
-        <p>This version uses the <code>merged.bin</code> which includes the bootloader. If it still loops, try clicking "Erase Device" inside the install menu before flashing.</p>
-    </div>
+        <h2>Heltec Wireless Paper • v0.2.0</h2>
+        <p>Sol Slate is an open-source tool for getting API data onto the E-Ink display of your Wireless Paper device. This page handles hardware sales and automatic web flashing.</p>
 
-    <div class="footer">
-        &copy; 2026 Sol Slate • <a href="https://atlasslate.com">atlasslate.com</a>
+        <img src="Sat_Slate_product_202603181636.jpg" alt="Sol Slate Product" class="product-image">
+
+        <div class="action-container">
+            <h2>⚡ Flash Latest Firmware</h2>
+            <p style="color: #6a737d; margin-bottom: 0;">Use <b>Chrome</b> or <b>Edge</b> via USB.</p>
+            <esp-web-install-button manifest="./manifest.json?v=0.2.0"></esp-web-install-button>
+        </div>
+
+        <hr class="section-separator">
+
+        <h2>🛒 Order Hardware</h2>
+        <div class="action-container">
+            <p>Get pre-configured units with Sol Slate v0.2.0 pre-installed.</p>
+            
+            <div class="store-buttons">
+                <a href="#" class="store-btn btn-stripe">Credit / Debit Card ($45)</a>
+                
+                <a href="#" class="store-btn btn-btcpay">₿ Pay with Bitcoin</a>
+            </div>
+        </div>
+
+        <hr class="section-separator">
+
+        <div class="faq">
+            <h2>❓ FAQ</h2>
+            <h3>The device won't connect?</h3>
+            <p>Ensure your USB-C cable handles data (test it with a smartphone). Many cables are power-only. If it still fails, hold the <b>BOOT</b> button on the side while plugging it in.</p>
+            
+            <h3>Screen is frozen?</h3>
+            <p>E-Ink requires a full refresh cycle to clear ghosting. Quick-press the <b>RST</b> button once to trigger a screen refresh.</p>
+        </div>
+
+        <hr class="section-separator">
+
+        <div class="about-atlas">
+            <h2>🏢 About Atlas</h2>
+            <p>Atlas is an independent open-source hardware initiative focused on the <i>Wireless Paper</i> platform. Our goal is to make professional API display integration accessible to developers and hobbyists alike.</p>
+            <p>Support this project by purchasing hardware on this page or by contributing to our GitHub repository.</p>
+        </div>
+
+        <div class="footer">
+            Sol Slate is developed by Atlas • <a href="https://atlasslate.com">atlasslate.com</a> • &copy; 2026
+        </div>
+        
     </div>
-</div>
 
 </body>
 </html>
