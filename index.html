@@ -11,7 +11,7 @@
         .header h1 { font-size: 3em; margin: 0; letter-spacing: -1px; }
         .main-content { max-width: 740px; margin: -40px auto 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #dce3e8; }
         
-        /* IMAGE STYLING */
+        /* IMAGE STYLING - UPDATED FILENAME */
         .product-img { 
             display: block; 
             width: 100%; 
@@ -20,7 +20,6 @@
             margin: 20px auto; 
             border-radius: 12px; 
             border: 1px solid #eaecef; 
-            background-color: #eee; /* Light gray box shows while loading */
         }
 
         .action-card { background: #f8f9fa; border: 1px solid #eaecef; border-radius: 8px; padding: 25px; margin: 30px 0; text-align: center; }
@@ -41,11 +40,12 @@
 
     <div class="main-content">
         
-        <img src="Sat_Slate_product_202603181636.jpg" alt="Sol Slate Hardware Image Loading..." class="product-img">
+        <img src="Sat_Slate_product_202603181636.jpeg" alt="Sol Slate Hardware" class="product-img">
 
         <div class="action-card">
             <h2>Flash Firmware v0.2.0</h2>
             <esp-web-install-button manifest="./manifest.json?v=0.2.0"></esp-web-install-button>
+            <p><small>Connect via USB-C and use Chrome or Edge browser.</small></p>
         </div>
 
         <div class="action-card">
@@ -58,7 +58,13 @@
 
         <div class="action-card" style="text-align: left;">
             <h2>About Atlas</h2>
-            <p>Atlas focuses on low-power IoT displays that bridge the gap between digital data and physical space. The Sol Slate is our flagship E-ink implementation.</p>
+            <p>Atlas designs low-power information displays. The Sol Slate turns raw API data into a beautiful, persistent E-ink experience that lives on your desk.</p>
+        </div>
+
+        <div class="faq">
+            <h2>FAQ</h2>
+            <h3>How do I flash?</h3>
+            <p>Connect your device and click "Install." If your device isn't found, hold the <b>BOOT</b> button while plugging it in.</p>
         </div>
 
         <div class="footer">
