@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol Slate | Firmware Hub</title>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: auto; padding: 40px 20px; background-color: #f9f9f9; }
+        .container { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { margin-top: 0; font-weight: 800; letter-spacing: -1px; }
+        .status-box { background: #f0f7ff; border-left: 4px solid #0070f3; padding: 15px; margin: 20px 0; font-size: 0.9em; }
+        .install-wrapper { display: flex; justify-content: center; padding: 30px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin: 20px 0; }
+        .faq { margin-top: 40px; }
+        .faq h3 { font-size: 1.1em; margin-bottom: 5px; }
+        .footer { text-align: center; font-size: 0.8em; color: #888; margin-top: 40px; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sol Slate v0.2.0</h1>
+    <p>Official firmware flasher for the Heltec Wireless Paper. Use <b>Chrome</b> or <b>Edge</b> via USB connection.</p>
+
+    <div class="status-box">
+        <strong>Pre-flight Check:</strong><br>
+        1. Connect Sol Slate via USB-C.<br>
+        2. If it isn't recognized, hold the <b>BOOT</b> button while plugging it in.
+    </div>
+
+    <div class="install-wrapper">
+        <esp-web-install-button manifest="./manifest.json?v=0.2.0">
+            <button slot="activate">Connect & Install</button>
+        </esp-web-install-button>
+    </div>
+
+    <div class="faq">
+        <h2>Troubleshooting</h2>
+        <h3>Device not found?</h3>
+        <p>Ensure you are using a data-capable USB cable. Some "charging only" cables won't work.</p>
+        
+        <h3>Stuck in a boot loop?</h3>
+        <p>This version uses the <code>merged.bin</code> which includes the bootloader. If it still loops, try clicking "Erase Device" inside the install menu before flashing.</p>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 Sol Slate • <a href="https://atlasslate.com">atlasslate.com</a>
+    </div>
+</div>
+
+</body>
+</html>
