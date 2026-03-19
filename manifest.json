@@ -1,6 +1,6 @@
 {
-  "name": "Wireless Paper API",
-  "version": "1.0.0",
+  "name": "Sol Slate",
+  "version": "0.2.0",
   "builds": [
     {
       "chipFamily": "ESP32-S3",
