@@ -21,7 +21,8 @@
             margin: 0 auto 20px auto;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            flex-wrap: wrap; 
+            gap: 25px;
         }
         nav a {
             text-decoration: none;
@@ -61,10 +62,24 @@
         .page-content.active { display: block; }
 
         .action-card { background: #f8f9fa; border: 1px solid #eaecef; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: center; }
+        
+        /* WARNING CARD STYLING */
+        .warning-card { background: #fff5f5; border: 1px solid #ffe3e3; border-left: 5px solid #e74c3c; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: left; }
+        .warning-card h3 { color: #e74c3c; margin-top: 0; }
+
+        /* INFO CARD STYLING */
+        .info-card { background: #eef2ff; border-radius: 8px; padding: 25px; margin: 40px 0 20px 0; text-align: center; }
+        .info-card h3 { color: #1e6bb8; margin-top: 0; }
+
         .btn-group { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto; }
         .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; }
+        
+        /* Button Colors */
         .btn-fiat { background: #24292e; color: #fff; }
         .btn-btc { background: #f7931a; color: #fff; }
+        .btn-blue { background: #1e6bb8; color: #fff; }
+        .btn-apple { background: #000; color: #fff; }
+        .btn-android { background: #3ddc84; color: #000; }
 
         esp-web-install-button { --esp-tools-button-color: #1e6bb8; }
         .footer { text-align: center; color: #818b95; font-size: 0.8em; margin-top: 60px; }
@@ -77,6 +92,7 @@
         <a href="?page=flash" id="nav-flash">Firmware</a>
         <a href="?page=faq" id="nav-faq">FAQ</a>
         <a href="?page=about" id="nav-about">About</a>
+        <a href="?page=meshtastic" id="nav-meshtastic">Meshtastic</a>
     </nav>
 
     <div class="main-content">
@@ -98,6 +114,39 @@
             <p style="text-align: center;">Update your Sat Slate to v0.2.0 via USB.</p>
             <div class="action-card">
                 <esp-web-install-button manifest="./manifest.json?v=0.2.0"></esp-web-install-button>
+            </div>
+        </div>
+
+        <div id="page-meshtastic" class="page-content">
+            <h1>Meshtastic Network</h1>
+            <p style="text-align: center;">Your Sat Slate hardware is fully compatible with the open-source Meshtastic communication network. You can overwrite your firmware to use it for off-grid messaging.</p>
+
+            <div class="warning-card">
+                <h3>⚠️ CRITICAL WARNING</h3>
+                <p><strong>You MUST attach the included LoRa antenna BEFORE flashing Meshtastic.</strong></p>
+                <p style="margin-bottom: 0; font-size: 0.9em; color: #666;">Meshtastic activates the radio transmitter immediately upon booting. Transmitting without an antenna attached will cause the radio signals to bounce back into the board, permanently destroying the LoRa chip.</p>
+            </div>
+
+            <div class="action-card">
+                <h2>1. Flash Meshtastic</h2>
+                <p>Click below to leave this site and use the official web flasher. Select <b>Heltec Wireless Paper</b> as your target device.</p>
+                <div class="btn-group">
+                    <a href="https://flasher.meshtastic.org/" target="_blank" rel="noopener noreferrer" class="btn btn-blue">Go to Meshtastic Flasher ↗</a>
+                </div>
+            </div>
+
+            <div class="action-card">
+                <h2>2. Get the Companion App</h2>
+                <p>To send and receive messages, pair your flashed device to your phone via Bluetooth using the official app.</p>
+                <div class="btn-group">
+                    <a href="https://apps.apple.com/us/app/meshtastic/id1586431688" target="_blank" rel="noopener noreferrer" class="btn btn-apple"> iOS App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.geeksville.mesh" target="_blank" rel="noopener noreferrer" class="btn btn-android">▶ Google Play</a>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Want to switch back?</h3>
+                <p style="margin-bottom:0;">No problem. You can return to this website at any time, click the <strong>Firmware</strong> tab at the top, and reinstall the Sat Slate display software in one click.</p>
             </div>
         </div>
 
