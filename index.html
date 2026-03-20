@@ -72,7 +72,7 @@
         .info-card h3 { color: #1e6bb8; margin-top: 0; }
 
         .btn-group { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto; }
-        .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; }
+        .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; cursor: pointer; border: none; font-family: inherit;}
         
         /* Button Colors */
         .btn-fiat { background: #24292e; color: #fff; }
@@ -80,6 +80,19 @@
         .btn-blue { background: #1e6bb8; color: #fff; }
         .btn-apple { background: #000; color: #fff; }
         .btn-android { background: #3ddc84; color: #000; }
+
+        /* Setup Form Inputs */
+        .input-field {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            margin: 8px auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
 
         esp-web-install-button { --esp-tools-button-color: #1e6bb8; }
         .footer { text-align: center; color: #818b95; font-size: 0.8em; margin-top: 60px; }
@@ -89,6 +102,7 @@
 
     <nav>
         <a href="?page=home" id="nav-home">Store</a>
+        <a href="?page=setup" id="nav-setup">Setup</a>
         <a href="?page=flash" id="nav-flash">Firmware</a>
         <a href="?page=faq" id="nav-faq">FAQ</a>
         <a href="?page=about" id="nav-about">About</a>
@@ -96,7 +110,7 @@
     </nav>
 
     <div class="main-content">
-        <img src="Sat_Slate_product_202603181636.jpeg" alt="Sat Slate" class="product-img">
+        <img src="Sat_Slate_product_202603181636.jpg" alt="Sat Slate" class="product-img">
 
         <div id="page-home" class="page-content">
             <h1>Sat Slate</h1>
@@ -109,10 +123,37 @@
             </div>
         </div>
 
+        <div id="page-setup" class="page-content">
+            <h1>Device Setup</h1>
+            <p style="text-align: center;">Push your WiFi and location settings directly to the Sat Slate via USB.</p>
+            
+            <div class="warning-card browser-warning" style="display: none;">
+                <h3>⚠️ Browser Not Supported</h3>
+                <p>Web USB communication requires a Chromium-based browser (Chrome, Edge, Brave, Opera). Please switch browsers to use this feature.</p>
+            </div>
+
+            <div class="action-card serial-controls">
+                <input type="text" id="cfg-ssid" placeholder="WiFi Network Name (SSID)" class="input-field">
+                <input type="password" id="cfg-pass" placeholder="WiFi Password" class="input-field">
+                <input type="number" id="cfg-gmt" placeholder="GMT Offset (e.g. -5 for EST)" class="input-field">
+                <input type="text" id="cfg-zip" placeholder="US ZIP Code" class="input-field">
+                <div class="btn-group">
+                    <button onclick="sendSerialConfig()" class="btn btn-blue">Push to Device</button>
+                </div>
+                <p id="serial-status" style="font-size: 0.9em; margin-top: 15px; color: #666;"></p>
+            </div>
+        </div>
+
         <div id="page-flash" class="page-content">
             <h1>Firmware Update</h1>
             <p style="text-align: center;">Update your Sat Slate to v0.2.0 via USB.</p>
-            <div class="action-card">
+            
+            <div class="warning-card browser-warning" style="display: none;">
+                <h3>⚠️ Browser Not Supported</h3>
+                <p>The Web Flasher requires a Chromium-based browser (Chrome, Edge, Brave, Opera). Please switch browsers to update firmware.</p>
+            </div>
+
+            <div class="action-card serial-controls">
                 <esp-web-install-button manifest="./manifest.json?v=0.2.0"></esp-web-install-button>
             </div>
         </div>
@@ -171,16 +212,14 @@
     </div>
 
     <script>
-        // Simple Page Routing Logic
+        // --- ROUTING LOGIC (Now with seamless transitions) ---
         function route() {
             const params = new URLSearchParams(window.location.search);
             const page = params.get('page') || 'home';
             
-            // Hide all pages
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
 
-            // Show current page
             const activePage = document.getElementById('page-' + page);
             const activeNav = document.getElementById('nav-' + page);
             
@@ -188,8 +227,69 @@
             if (activeNav) activeNav.classList.add('active');
         }
 
+        // Intercept clicks to prevent full page reloads
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = link.getAttribute('href');
+                window.history.pushState({}, '', url);
+                route(); 
+            });
+        });
+
         window.addEventListener('popstate', route);
-        route(); // Initialize
+        route(); 
+
+        // --- BROWSER COMPATIBILITY CHECK ---
+        if (!navigator.serial) {
+            // Hide the forms/buttons and show the warnings on unsupported browsers
+            document.querySelectorAll('.serial-controls').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.browser-warning').forEach(el => el.style.display = 'block');
+        }
+
+        // --- WEB SERIAL LOGIC ---
+        async function sendSerialConfig() {
+            const statusEl = document.getElementById('serial-status');
+            const ssid = document.getElementById('cfg-ssid').value.trim();
+            const pass = document.getElementById('cfg-pass').value.trim();
+            const gmt = document.getElementById('cfg-gmt').value;
+            const zip = document.getElementById('cfg-zip').value.trim();
+
+            if (!ssid || !gmt || !zip) {
+                statusEl.innerText = "Please fill out SSID, GMT, and ZIP.";
+                statusEl.style.color = "red";
+                return;
+            }
+
+            try {
+                // Request port and open connection at 115200 baud
+                const port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+                
+                statusEl.innerText = "Connected. Sending data...";
+                statusEl.style.color = "#1e6bb8";
+
+                // We package the data into a clean JSON string, terminated by a newline
+                const payload = JSON.stringify({ ssid, pass, gmt, zip }) + '\n';
+                
+                const textEncoder = new TextEncoderStream();
+                const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
+                const writer = textEncoder.writable.getWriter();
+                
+                await writer.write(payload);
+                await writer.close();
+                await writableStreamClosed;
+                await port.close();
+
+                statusEl.innerText = "Success! Settings pushed to Sat Slate.";
+                statusEl.style.color = "green";
+
+            } catch (err) {
+                console.error(err);
+                statusEl.innerText = "Error: Could not connect or send data.";
+                statusEl.style.color = "red";
+            }
+        }
     </script>
 </body>
 </html>
