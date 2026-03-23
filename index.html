@@ -8,9 +8,9 @@
     <style>
         body { 
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
-            color: #444; 
+            color: #334155; /* Slate 700 */
             line-height: 1.6; 
-            background-color: #f3f6f8; 
+            background-color: #FDFBF7; /* Warm Cream */
             margin: 0; 
             padding: 20px; 
         }
@@ -26,24 +26,25 @@
         }
         nav a {
             text-decoration: none;
-            color: #1e2831;
+            color: #64748B; /* Slate 500 */
             font-weight: bold;
             font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
             padding: 5px 10px;
+            transition: color 0.2s ease, border-color 0.2s ease;
         }
-        nav a:hover { color: #1e6bb8; }
-        nav a.active { border-bottom: 2px solid #1e6bb8; color: #1e6bb8; }
+        nav a:hover { color: #0F172A; /* Slate 900 */ }
+        nav a.active { border-bottom: 2px solid #0F172A; color: #0F172A; }
 
         .main-content { 
             max-width: 800px; 
             margin: 0 auto; 
-            background: #fff; 
+            background: #FFFFFF; 
             padding: 40px; 
             border-radius: 8px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid #dce3e8; 
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04); 
+            border: 1px solid #E2E8F0; /* Slate 200 */
         }
 
         /* HERO IMAGE - TOP */
@@ -54,32 +55,42 @@
             height: auto; 
             margin: 0 auto 30px auto; 
             border-radius: 12px; 
-            border: 1px solid #eaecef; 
+            border: 1px solid #E2E8F0; 
         }
         
-        h1 { font-size: 2.8em; margin-top: 0; letter-spacing: -1px; color: #1e2831; text-align: center; }
+        h1 { font-size: 2.8em; margin-top: 0; letter-spacing: -1px; color: #0F172A; text-align: center; }
+        h2 { color: #1E293B; }
         .page-content { display: none; }
         .page-content.active { display: block; }
 
-        .action-card { background: #f8f9fa; border: 1px solid #eaecef; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: center; }
+        .action-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: center; }
         
         /* WARNING CARD STYLING */
-        .warning-card { background: #fff5f5; border: 1px solid #ffe3e3; border-left: 5px solid #e74c3c; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: left; }
-        .warning-card h3 { color: #e74c3c; margin-top: 0; }
+        .warning-card { background: #FEF2F2; border: 1px solid #FECACA; border-left: 5px solid #EF4444; border-radius: 8px; padding: 25px; margin: 25px 0; text-align: left; }
+        .warning-card h3 { color: #B91C1C; margin-top: 0; }
 
         /* INFO CARD STYLING */
-        .info-card { background: #eef2ff; border-radius: 8px; padding: 25px; margin: 40px 0 20px 0; text-align: center; }
-        .info-card h3 { color: #1e6bb8; margin-top: 0; }
+        .info-card { background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 8px; padding: 25px; margin: 40px 0 20px 0; text-align: center; }
+        .info-card h3 { color: #334155; margin-top: 0; }
 
         .btn-group { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto; }
-        .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; cursor: pointer; border: none; font-family: inherit;}
+        .btn { display: block; padding: 14px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1.1em; text-align: center; cursor: pointer; border: none; font-family: inherit; transition: background 0.2s ease;}
         
-        /* Button Colors */
-        .btn-fiat { background: #24292e; color: #fff; }
-        .btn-btc { background: #f7931a; color: #fff; }
-        .btn-blue { background: #1e6bb8; color: #fff; }
-        .btn-apple { background: #000; color: #fff; }
-        .btn-android { background: #3ddc84; color: #000; }
+        /* Button Colors - Shifted to Cohesive Slates */
+        .btn-fiat { background: #0F172A; color: #F8FAFC; }
+        .btn-fiat:hover { background: #1E293B; }
+        
+        .btn-btc { background: #334155; color: #F8FAFC; }
+        .btn-btc:hover { background: #475569; }
+        
+        .btn-blue { background: #475569; color: #F8FAFC; }
+        .btn-blue:hover { background: #64748B; }
+        
+        .btn-apple { background: #0F172A; color: #F8FAFC; }
+        .btn-apple:hover { background: #1E293B; }
+        
+        .btn-android { background: #334155; color: #F8FAFC; }
+        .btn-android:hover { background: #475569; }
 
         /* Setup Form Inputs */
         .input-field {
@@ -88,14 +99,22 @@
             padding: 12px;
             margin: 8px auto;
             display: block;
-            border: 1px solid #ccc;
+            border: 1px solid #CBD5E1;
+            background-color: #FFFFFF;
+            color: #0F172A;
             border-radius: 6px;
             font-size: 1em;
             box-sizing: border-box;
         }
+        .input-field:focus {
+            outline: none;
+            border-color: #64748B;
+        }
 
-        esp-web-install-button { --esp-tools-button-color: #1e6bb8; }
-        .footer { text-align: center; color: #818b95; font-size: 0.8em; margin-top: 60px; }
+        esp-web-install-button { --esp-tools-button-color: #475569; }
+        .footer { text-align: center; color: #94A3B8; font-size: 0.8em; margin-top: 60px; }
+        .footer a { color: #64748B; text-decoration: none; }
+        .footer a:hover { color: #0F172A; }
     </style>
 </head>
 <body>
@@ -145,7 +164,7 @@
                 <div class="btn-group">
                     <button onclick="sendSerialConfig()" class="btn btn-blue">Push to Device</button>
                 </div>
-                <p id="serial-status" style="font-size: 0.9em; margin-top: 15px; color: #666;"></p>
+                <p id="serial-status" style="font-size: 0.9em; margin-top: 15px; color: #64748B;"></p>
             </div>
         </div>
 
@@ -170,12 +189,12 @@
             <div class="warning-card">
                 <h3>⚠️ CRITICAL WARNING</h3>
                 <p><strong>You MUST attach the included LoRa antenna BEFORE flashing Meshtastic.</strong></p>
-                <p style="margin-bottom: 0; font-size: 0.9em; color: #666;">Meshtastic activates the radio transmitter immediately upon booting. Transmitting without an antenna attached will cause the radio signals to bounce back into the board, permanently destroying the LoRa chip.</p>
+                <p style="margin-bottom: 0; font-size: 0.9em; color: #475569;">Meshtastic activates the radio transmitter immediately upon booting. Transmitting without an antenna attached will cause the radio signals to bounce back into the board, permanently destroying the LoRa chip.</p>
             </div>
 
             <div class="action-card">
                 <h2>1. Flash Meshtastic</h2>
-                <p>Click below to leave this site and use the official web flasher. Select <b>Heltec Wireless Paper</b> as your target device.</p>
+                <p>Click below to leave this site and use the official web flasher. Select <b style="color:#0F172A;">Heltec Wireless Paper</b> as your target device.</p>
                 <div class="btn-group">
                     <a href="https://flasher.meshtastic.org/" target="_blank" rel="noopener noreferrer" class="btn btn-blue">Go to Meshtastic Flasher ↗</a>
                 </div>
@@ -192,16 +211,16 @@
 
             <div class="info-card">
                 <h3>Want to switch back?</h3>
-                <p style="margin-bottom:0;">No problem. You can return to this website at any time, click the <strong>Firmware</strong> tab at the top, and reinstall the Sat Slate display software in one click.</p>
+                <p style="margin-bottom:0; color: #475569;">No problem. You can return to this website at any time, click the <strong>Firmware</strong> tab at the top, and reinstall the Sat Slate display software in one click.</p>
             </div>
         </div>
 
         <div id="page-faq" class="page-content">
             <h1>FAQ</h1>
             <div style="margin-top: 30px;">
-                <h3 style="color:#1e6bb8">How do I flash?</h3>
-                <p>Connect via USB-C and click "Install" on the Firmware page. If the device isn't found, hold the <b>BOOT</b> button while plugging it in.</p>
-                <h3 style="color:#1e6bb8">Battery Life?</h3>
+                <h3 style="color:#334155">How do I flash?</h3>
+                <p>Connect via USB-C and click "Install" on the Firmware page. If the device isn't found, hold the <b style="color:#0F172A;">BOOT</b> button while plugging it in.</p>
+                <h3 style="color:#334155">Battery Life?</h3>
                 <p>Depending on your refresh frequency, the Sat Slate can last weeks on a single charge.</p>
             </div>
         </div>
@@ -212,7 +231,7 @@
         </div>
 
         <div class="footer">
-            &copy; 2026 Atlas IoT • <a href="https://atlasslate.com" style="color:#1e6bb8">atlasslate.com</a>
+            &copy; 2026 Atlas IoT • <a href="https://atlasslate.com">atlasslate.com</a>
         </div>
     </div>
 
@@ -275,7 +294,7 @@
 
             if (!ssid || !gmt || !zip) {
                 statusEl.innerText = "Please fill out SSID, GMT, and ZIP.";
-                statusEl.style.color = "red";
+                statusEl.style.color = "#EF4444"; // Tailwind Red 500
                 return;
             }
 
@@ -285,7 +304,7 @@
                 await port.open({ baudRate: 115200 });
                 
                 statusEl.innerText = "Connected. Waking up device...";
-                statusEl.style.color = "#f7931a"; // Orange to indicate waiting
+                statusEl.style.color = "#64748B"; // Slate 500
 
                 // CRITICAL FIX: Opening the port resets the ESP32. 
                 // We must wait 2 seconds for the board to boot up before sending data.
@@ -306,12 +325,12 @@
                 await port.close();
 
                 statusEl.innerText = "Success! Settings pushed to Sat Slate.";
-                statusEl.style.color = "green";
+                statusEl.style.color = "#10B981"; // Tailwind Emerald 500 (Clean modern green)
 
             } catch (err) {
                 console.error(err);
                 statusEl.innerText = "Error: Could not connect or send data. Make sure no other programs are using the port.";
-                statusEl.style.color = "red";
+                statusEl.style.color = "#EF4444"; // Tailwind Red 500
             }
         }
     </script>
